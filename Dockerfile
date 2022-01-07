@@ -17,14 +17,8 @@ RUN curl -sL https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc | apt-key a
 RUN useradd --system --user-group --home-dir /var/bigbluebutton bigbluebutton
 RUN touch /.dockerenv
 RUN apt-get update \
-    && apt-get download bbb-playback bbb-playback-presentation \
+    && apt-get download bbb-record-core bbb-playback bbb-playback-presentation bbb-playback-notes bbb-playback-podcast bbb-playback-screenshare \
     && dpkg -i --force-depends *.deb
-RUN curl -LJO https://raw.githubusercontent.com/bbb-pkg/bbb-playback-screenshare/master/etc/bigbluebutton/nginx/recording-screenshare.nginx
-RUN curl -LJO https://raw.githubusercontent.com/bbb-pkg/bbb-playback-podcast/master/etc/bigbluebutton/nginx/podcast.nginx
-RUN curl -LJO https://raw.githubusercontent.com/bbb-pkg/bbb-playback-notes/master/etc/bigbluebutton/nginx/notes-playback.nginx
-RUN cp recording-screenshare.nginx /etc/bigbluebutton/nginx/
-RUN cp podcast.nginx /etc/bigbluebutton/nginx/
-RUN cp notes-playback.nginx /etc/bigbluebutton/nginx/
 
 
 FROM alpine AS nginx
